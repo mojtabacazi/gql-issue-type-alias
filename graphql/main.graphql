@@ -1,0 +1,22 @@
+scalar Time
+scalar Int64
+
+directive @goModel(model: String, models: [String!]) on OBJECT | INPUT_OBJECT | SCALAR | ENUM | INTERFACE | UNION
+directive @goField(forceResolver: Boolean, name: String) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+
+type Query {
+  sampleQuery(input: SampleInput): SamplePayload 
+}
+
+input SampleInput @goModel(model: "app/models.SampleInput") {
+  ok: Boolean
+  notOk: [ChildInput!]!
+}
+
+input ChildInput @goModel(model: "app/models.ChildInput") {
+  dummy: String
+}
+
+type SamplePayload {
+  dummy: String
+}
